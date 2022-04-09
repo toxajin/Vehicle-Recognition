@@ -3,8 +3,11 @@ import './ImageLinkForm.css'
 const ImageLinkForm =({OnChange,OnClick})=>{
     return(
         <div>
-            <p className='f3'>
-                {'This Magic Brain will detect vehicles on your pictures so give it a try'}
+            <p className='f4'>
+                {'This Magic Brain will detect vehicles on your pictures'}
+            </p>
+            <p className='f5'>
+                {'Add any .jpg link of cars on search field, click an enter and AI will detect cars on your photos and count them for you'}
             </p>
             <div className='center'>
                 <div className='form center pa4 br3 shadow-5'>

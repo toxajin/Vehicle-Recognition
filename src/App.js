@@ -109,9 +109,13 @@ class App extends Component{
           }
         })
         .catch(err => console.log(err));
+        setTimeout(() => window.scroll({
+          top: document.body.offsetHeight,
+          left: 0, 
+          behavior: 'smooth',
+        }),100);
       }
   }
-
   render(){
     const {isSignedIn, route, boxes, imageUrl, user} = this.state;
     return (
