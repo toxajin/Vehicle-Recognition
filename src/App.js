@@ -9,23 +9,25 @@ import VehicleRecognition from './Components/VehicleRecognition/VehicleRecogniti
 import SignIn from './Components/SignIn/SignIn';
 import Register from './Components/Register/Register';
 
+const initalState = {     
+  input: '',
+  imageUrl: '',
+  boxes: '',
+  route: 'signin',
+  isSignedIn: false,
+  user: {
+    id:'',
+    name:'',
+    email:'',
+    entries: 0,
+    joined: ''
+  }
+};
+
 class App extends Component{
   constructor(){
     super();
-    this.state={
-      input: '',
-      imageUrl: '',
-      boxes: '',
-      route: 'signin',
-      isSignedIn: false,
-      user: {
-        id:'',
-        name:'',
-        email:'',
-        entries: 0,
-        joined: ''
-      }
-    }
+    this.state=initalState;
   }
 
   loadUser = (data) => {
@@ -40,7 +42,7 @@ class App extends Component{
 
   onRouteChange = (route) => {
     if (route === 'signout'){
-      this.setState({isSignedIn:false})
+      this.setState(initalState)
     } else if(route === 'home') {
       this.setState({isSignedIn:true})
     }

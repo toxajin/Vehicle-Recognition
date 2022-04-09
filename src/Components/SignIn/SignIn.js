@@ -20,23 +20,26 @@ class SignIn extends Component {
     }
 
     onSubmitSignin=(event)=>{
-        fetch('https://murmuring-savannah-20477.herokuapp.com/signin', {
-            method:'POST',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({
-                email:this.state.SignInEmail,
-                password:this.state.SignInPassword
+        if(event.keyCode === 13 || event.type === 'click')
+        {
+            fetch('https://murmuring-savannah-20477.herokuapp.com/signin', {
+                method:'POST',
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify({
+                    email:this.state.SignInEmail,
+                    password:this.state.SignInPassword
+                })
             })
-        })
-        .then(res=>res.json())
-        .then(user =>{
-            if(user.id) {
-                this.props.loadUser(user);
-                this.props.onRouteChange('home');
-            } else {
-                this.setState({WrognEmailPassword: 'Wrong'})
-            }
-        })
+            .then(res=>res.json())
+            .then(user =>{
+                if(user.id) {
+                    this.props.loadUser(user);
+                    this.props.onRouteChange('home');
+                } else {
+                    this.setState({WrognEmailPassword: 'Wrong'})
+                }
+            })
+        }
     }
 
     render() {
@@ -58,6 +61,7 @@ class SignIn extends Component {
                             <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
                             <input 
                             onChange={onPasswordChange}
+                            onKeyDown={onSubmitSignin}
                             className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password"/>
                         </div>
                         </fieldset>
