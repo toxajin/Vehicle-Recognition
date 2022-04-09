@@ -75,38 +75,41 @@ class App extends Component{
     this.setState({input: event.target.value});
   }
 
-  OnClick=()=>{
-    this.setState({
-      imageUrl:this.state.input
-    });
-    this.setState({boxes:''});
-      fetch('https://murmuring-savannah-20477.herokuapp.com/imageurl', {
-        method:'post',
-        headers:{'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          input:this.state.input
+  OnClick=(event)=>{
+    if(event.keyCode === 13 || event.type === 'click')
+    {
+      this.setState({
+        imageUrl:this.state.input
+      });
+      this.setState({boxes:''});
+        fetch('https://murmuring-savannah-20477.herokuapp.com/imageurl', {
+          method:'post',
+          headers:{'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            input:this.state.input
+          })
         })
-      })
-      .then(res => res.json())
-      .then(response => {
-        this.displayVehicleBoxes(this.CalculateVehicleLocation(response));
-        if(response) {
-          fetch('https://murmuring-savannah-20477.herokuapp.com/image', {
-            method:'PUT',
-            headers:{'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              id:this.state.user.id,
-              cars:this.state.boxes.length
+        .then(res => res.json())
+        .then(response => {
+          this.displayVehicleBoxes(this.CalculateVehicleLocation(response));
+          if(response) {
+            fetch('https://murmuring-savannah-20477.herokuapp.com/image', {
+              method:'PUT',
+              headers:{'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                id:this.state.user.id,
+                cars:this.state.boxes.length
+              })
             })
-          })
-          .then(response => response.json())
-          .then(count => {
-            this.setState(Object.assign(this.state.user, {entries:count}))
-          })
-          .catch(console.log)
-        }
-      })
-      .catch(err => console.log(err));
+            .then(response => response.json())
+            .then(count => {
+              this.setState(Object.assign(this.state.user, {entries:count}))
+            })
+            .catch(console.log)
+          }
+        })
+        .catch(err => console.log(err));
+      }
   }
 
   render(){
